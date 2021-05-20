@@ -11,6 +11,7 @@ from telegram.ext import (
 from ticker import get_price_change
 
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+PORT = int(os.environ.get("PORT", 5000))
 
 
 def get_px_change(
@@ -39,11 +40,20 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("get_px_change", get_px_change))
 
     # Start the Bot
+    # 'start_polling' for local development; webhook for production
     updater.start_polling()
 
     # Block until the user presses Ctrl-C or the process receives SIGINT, SIGTERM
     # or SIGABRT. This should be used most of the time, since start_polling() is non-blocking
     # and will stop the bot gracefully.
+    # updater.idle()
+    updater.start_webhook(
+        listen="0.0.0.0",
+        port=int(PORT),
+        url_path=TOKEN
+    )
+    updater.bot.setWebhook("https://km-cryptobot.herokuapp.com/" + TOKEN)
+
     updater.idle()
 
 
