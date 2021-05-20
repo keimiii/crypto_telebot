@@ -15,7 +15,7 @@ PORT = int(os.environ.get("PORT", 5000))
 
 
 def get_px_change(
-    update: Update,
+    update: Updater,
     context: CallbackContext,
     ticker: str = None,
 ) -> None:
@@ -41,12 +41,7 @@ def main() -> None:
 
     # Start the Bot
     # 'start_polling' for local development; webhook for production
-    updater.start_polling()
-
-    # Block until the user presses Ctrl-C or the process receives SIGINT, SIGTERM
-    # or SIGABRT. This should be used most of the time, since start_polling() is non-blocking
-    # and will stop the bot gracefully.
-    # updater.idle()
+    # updater.start_polling()
     updater.start_webhook(
         listen="0.0.0.0",
         port=int(PORT),
@@ -54,6 +49,9 @@ def main() -> None:
     )
     updater.bot.setWebhook("https://km-cryptobot.herokuapp.com/" + TOKEN)
 
+    # Block until the user presses Ctrl-C or the process receives SIGINT, SIGTERM
+    # or SIGABRT. This should be used most of the time, since start_polling() is non-blocking
+    # and will stop the bot gracefully.
     updater.idle()
 
 
