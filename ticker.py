@@ -27,4 +27,5 @@ def get_price_change(
         return f"Couldn't find history for ticker {ticker}", None
     pct_chng = ((hist[-1] - hist[0]) / hist[0]) * 100
 
+    print(np.round(pct_chng, 2), hist)
     return np.round(pct_chng, 2), hist
