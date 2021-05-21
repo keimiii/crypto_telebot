@@ -28,6 +28,7 @@ def get_px_change(
     message = f"{ticker.upper()} changed by {pct_chng}!"
 
     update.message.reply_text(message)
+    print(message)
 
 
 def main() -> None:

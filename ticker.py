@@ -15,7 +15,6 @@ def get_price_change(
     Returns:
         Tuple[float, List]: Percentage change in float.
     """
-
     stock = yf.Ticker(ticker)
     hist = stock.history(period=lookback).Close.values.tolist()
     # If not updated yet
@@ -27,5 +26,4 @@ def get_price_change(
         return f"Couldn't find history for ticker {ticker}", None
     pct_chng = ((hist[-1] - hist[0]) / hist[0]) * 100
 
-    print(np.round(pct_chng, 2), hist)
     return np.round(pct_chng, 2), hist
